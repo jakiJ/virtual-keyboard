@@ -33,6 +33,31 @@
     }
 }
 
+
+.keyBtn {
+
+    border: .8px solid #000;
+    padding: 15px;
+
+    &.active {
+        box-shadow: 0px 0px 8px 1px rgb(3, 98, 225);
+        transform: scale(0.9);
+    }
+    &:hover {
+        box-shadow: 0px 0px 8px 1px rgb(3, 98, 225);
+        transform: scale(0.9);
+    }
+
+    .shift-key {
+        display: none;
+    }
+
+    & .func-keyBtn {
+        background-color: rgba(0, 0, 0, 0.87);
+    }
+
+}
+
 .footer {
     width: 100%;
     min-height: 100px;

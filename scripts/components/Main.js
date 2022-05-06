@@ -6,7 +6,7 @@ export default class Main {
         this.template = `<main class="main"></main>`;
         this.elem = createElement(this.template);
 
-        this.textarea = new Textarea();
-        this.elem.append(this.textarea.elem)
+        // this.textarea = new Textarea();
+        // this.elem.append(this.textarea.elem)
     }
 }

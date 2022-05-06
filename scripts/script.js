@@ -17,3 +17,8 @@ body.prepend(main.elem)
 //add header
 const header = new Header();
 body.prepend(header.elem);
+
+
+//add keyboard elements
+
+const mainDoc = document.querySelector('.main');
