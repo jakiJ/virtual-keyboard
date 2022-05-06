@@ -366,7 +366,7 @@ export default [
         func: true
     },
     {
-        text: 'Left',
+        text: 'LEFT',
         shift: null,
         code: 'ArrowLeft',
         func: true

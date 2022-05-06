@@ -24,12 +24,27 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 30px;
     padding: 20px;
 
     .display {
         padding: 15px;
         width: 70%;
         box-sizing: border-box;
+    }
+}
+
+.keyboard-container {
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    max-width: 1600px;
+
+    .keyboard-row {
+        display: grid;
+        gap: 5px;
+        width: 100%;
     }
 }
 
@@ -51,11 +66,15 @@
     .shift-key {
         display: none;
     }
+}
 
-    & .func-keyBtn {
-        background-color: rgba(0, 0, 0, 0.87);
-    }
+.func-keyBtn {
+    background-color: rgba(0, 0, 0, 0.17);
+}
 
+.space {
+    width: 520px;
+    max-width: 520px;
 }
 
 .footer {
