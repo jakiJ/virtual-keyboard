@@ -76,7 +76,7 @@
   padding: 15px;
 }
 
-.keyBtn.active {
+.keyBtn.active-key {
   -webkit-box-shadow: 0px 0px 8px 1px #0362e1;
           box-shadow: 0px 0px 8px 1px #0362e1;
   -webkit-transform: scale(0.9);

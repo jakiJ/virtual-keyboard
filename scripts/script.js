@@ -13,6 +13,7 @@ const keyOrder = [
     ['ControlLeft', 'MetaLeft', 'AltLeft', 'Space', 'AltLeft', 'ControlLeft', 'ArrowLeft', 'ArrowDown', 'ArrowRight']
 ];
 
+
 // const key100 = ['CapsLock', 'Backspace', 'Enter', 'ShiftLeft'];
 // const key80 = ['ControlLeft', 'MetaLeft', 'AltLeft'];
 // const arrow = ['ArrowLeft', 'ArrowDown', 'ArrowRight', 'ArrowUp']
@@ -38,7 +39,5 @@ const board = new Keyboard(keyOrder)
 board.createTextarea()
 board.createKeyboard()
 
-document.querySelectorAll('.keyBtn').forEach(key => {
-    const data = key.dataset.code;
-    if(data == 'Space') key.classList.add('space')
-})
+document.querySelector("[data-code='Space']").classList.add('space')
+
