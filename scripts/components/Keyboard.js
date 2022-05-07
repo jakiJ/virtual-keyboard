@@ -1,11 +1,15 @@
 import Key from './Key.js';
 import Textarea from './Textarea.js';
-import createElement from './createElement.js';
+import createElement from '../utils/createElement.js';
+import languages from '../languages/languages.js';
+
+const userLang = 'eng'; //then I will get language from local storage
 
 export default class Keyboard {
   constructor(rowsKeys) {
     this.allKeys = []; // for events
     this.rowsKeys = rowsKeys;
+    this.lang = languages[userLang]
   }
 
   createTextarea() {
@@ -14,13 +18,13 @@ export default class Keyboard {
     document.querySelector('.main').append(this.textareaElem);
   }
 
-  createKeyboard(lang) {
+  createKeyboard() {
     this.rowsContainer = createElement('<div class="keyboard-container"></div>');
     this.rowsKeys.forEach((row) => {
       this.rowElem = createElement('<div class="keyboard-row"></div>');
       this.rowElem.style.gridTemplateColumns = `repeat(${row.length}, 1fr)`;
       row.forEach((key) => {
-        this.keyData = lang.find(({ code }) => code === key);
+        this.keyData = this.lang.find(({ code }) => code === key);
         this.keyNew = new Key(this.keyData); // create class key
         this.allKeys.push(this.keyNew);
         const elemKey = this.keyNew.elem;
@@ -42,12 +46,10 @@ export default class Keyboard {
     if (!currentKey) return;
 
     this.textareaElem.focus();
-    console.log(currentKey);
 
     if (type.match(/keydown|mousedown/)) {
       if (type.match(/key/)) event.preventDefault();
       currentKey.elem.classList.add('active-key');
-      console.log(currentKey.elem);
     } else if (type.match(/keyup|mouseup/)) {
       currentKey.elem.classList.remove('active-key');
     }
