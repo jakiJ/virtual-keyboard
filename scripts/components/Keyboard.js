@@ -2,8 +2,9 @@ import Key from './Key.js';
 import Textarea from './Textarea.js';
 import createElement from '../utils/createElement.js';
 import languages from '../languages/languages.js';
+import {getLocalStorage, setLocalStorage} from '../utils/localStorage.js';
 
-const userLang = 'eng'; //then I will get language from local storage
+let userLang = getLocalStorage('locLanguage')
 
 export default class Keyboard {
   constructor(rowsKeys) {
