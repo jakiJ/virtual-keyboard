@@ -2,7 +2,8 @@ import Header from "./components/Header.js";
 import Footer from "./components/Footer.js";
 import Main from "./components/Main.js";
 import Keyboard from "./components/Keyboard.js";
-import ru from '../languages/ru.js';
+import ru from './languages/ru.js';
+import eng from './languages/eng.js';
 
 const body = document.body;
 
