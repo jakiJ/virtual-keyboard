@@ -2,6 +2,7 @@ import Header from "./components/Header.js";
 import Footer from "./components/Footer.js";
 import Main from "./components/Main.js";
 import Keyboard from "./components/Keyboard.js";
+import ru from '../languages/ru.js';
 
 const body = document.body;
 
@@ -37,7 +38,7 @@ body.prepend(header.elem);
 
 const board = new Keyboard(keyOrder)
 board.createTextarea()
-board.createKeyboard()
+board.createKeyboard(ru)
 
 document.querySelector("[data-code='Space']").classList.add('space')
 

@@ -1,7 +1,7 @@
 export default [
     {
-        text: 'ё',
-        shift: 'Ё',
+        text: '`',
+        shift: '~',
         code: 'Backquote',
         func: false
     },
@@ -13,19 +13,19 @@ export default [
     },
     {
         text: '2',
-        shift: '"',
+        shift: '@',
         code: 'Digit2',
         func: false
     },
     {
         text: '3',
-        shift: '№',
+        shift: '#',
         code: 'Digit3',
         func: false
     },
     {
         text: '4',
-        shift: ';',
+        shift: '$',
         code: 'Digit4',
         func: false
     },
@@ -37,13 +37,13 @@ export default [
     },
     {
         text: '6',
-        shift: ':',
+        shift: '^',
         code: 'Digit6',
         func: false
     },
     {
         text: '7',
-        shift: '?',
+        shift: '&',
         code: 'Digit7',
         func: false
     },
@@ -90,80 +90,80 @@ export default [
         func: true
     },
     {
-        text: 'й',
-        shift: 'Й',
+        text: 'q',
+        shift: 'Q',
         code: 'KeyY',
         func: false
     },
     {
-        text: 'ц',
-        shift: 'Ц',
+        text: 'w',
+        shift: 'W',
         code: 'KeyW',
         func: false
     },
     {
-        text: 'У',
-        shift: 'У',
+        text: 'e',
+        shift: 'E',
         code: 'KeyE',
         func: false
     },
     {
-        text: 'к',
-        shift: 'К',
+        text: 'r',
+        shift: 'R',
         code: 'KeyR',
         func: false
     },
     {
-        text: 'е',
-        shift: 'Е',
+        text: 't',
+        shift: 'T',
         code: 'KeyT',
         func: false
     },
     {
-        text: 'н',
-        shift: 'Н',
+        text: 'y',
+        shift: 'Y',
         code: 'KeyY',
         func: false
     },
     {
-        text: 'г',
-        shift: 'Г',
+        text: 'u',
+        shift: 'U',
         code: 'KeyU',
         func: false
     },
     {
-        text: 'ш',
-        shift: 'Ш',
+        text: 'i',
+        shift: 'I',
         code: 'KeyI',
         func: false
     },
     {
-        text: 'щ',
-        shift: 'Щ',
+        text: 'o',
+        shift: 'O',
         code: 'KeyO',
         func: false
     },
     {
-        text: 'з',
-        shift: 'З',
+        text: 'p',
+        shift: 'P',
         code: 'KeyP',
         func: false
     },
     {
-        text: 'х',
-        shift: 'Х',
+        text: '[',
+        shift: '{',
         code: 'BracketLeft',
         func: false
     },
     {
-        text: 'ъ',
-        shift: 'Ъ',
+        text: ']',
+        shift: '}',
         code: 'BracketRight',
         func: false
     },
     {
         text: '\\',
-        shift: '/',
+        shift: '|',
         code: 'Backslash',
         func: true
     },
@@ -174,68 +174,68 @@ export default [
         func: true
     },
     {
-        text: 'ф',
-        shift: 'Ф',
+        text: 'a',
+        shift: 'A',
         code: 'KeyA',
         func: false
     },
     {
-        text: 'ы',
-        shift: 'Ы',
+        text: 's',
+        shift: 'S',
         code: 'KeyS',
         func: false
     },
     {
-        text: 'в',
-        shift: 'В',
+        text: 'd',
+        shift: 'D',
         code: 'KeyD',
         func: false
     },
     {
-        text: 'а',
-        shift: 'А',
+        text: 'f',
+        shift: 'F',
         code: 'KeyF',
         func: false
     },
     {
-        text: 'п',
-        shift: 'П',
+        text: 'g',
+        shift: 'G',
         code: 'KeyG',
         func: false
     },
     {
-        text: 'р',
-        shift: 'Р',
+        text: 'h',
+        shift: 'H',
         code: 'KeyH',
         func: false
     },
     {
-        text: 'о',
-        shift: 'О',
+        text: 'j',
+        shift: 'J',
         code: 'KeyJ',
         func: false
     },
     {
-        text: 'л',
-        shift: 'Л',
+        text: 'k',
+        shift: 'K',
         code: 'KeyK',
         func: false
     },
     {
-        text: 'д',
-        shift: 'Д',
+        text: 'l',
+        shift: 'L',
         code: 'KeyL',
         func: false
     },
     {
-        text: 'ж',
-        shift: 'Ж',
+        text: ';',
+        shift: ':',
         code: 'Semicolon',
         func: false
     },
     {
-        text: 'э',
-        shift: 'Э',
+        text: '\'',
+        shift: '"',
         code: 'Quote',
         func: false
     },
@@ -252,62 +252,62 @@ export default [
         func: true
     },
     {
-        text: 'я',
-        shift: 'Я',
+        text: 'z',
+        shift: 'Z',
         code: 'KeyZ',
         func: false
     },
     {
-        text: 'ч',
-        shift: 'Ч',
+        text: 'x',
+        shift: 'X',
         code: 'KeyX',
         func: false
     },
     {
-        text: 'с',
-        shift: 'С',
+        text: 'c',
+        shift: 'C',
         code: 'KeyC',
         func: false
     },
     {
-        text: 'м',
-        shift: 'М',
+        text: 'v',
+        shift: 'V',
         code: 'KeyV',
         func: false
     },
     {
-        text: 'и',
-        shift: 'И',
+        text: 'b',
+        shift: 'B',
         code: 'KeyB',
         func: false
     },
     {
-        text: 'т',
-        shift: 'Т',
+        text: 'n',
+        shift: 'N',
         code: 'KeyN',
         func: false
     },
     {
-        text: 'ь',
-        shift: 'Ь',
+        text: 'm',
+        shift: 'M',
         code: 'KeyM',
         func: false
     },
     {
-        text: 'б',
-        shift: 'Б',
+        text: ',',
+        shift: '<',
         code: 'NumpadDecimal',
         func: false
     },
     {
-        text: 'ю',
-        shift: 'Ю',
+        text: '.',
+        shift: '>',
         code: 'Period',
         func: false
     },
     {
-        text: '.',
-        shift: ',',
+        text: '/',
+        shift: '?',
         code: 'Slash',
         func: false
     },

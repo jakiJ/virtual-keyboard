@@ -1,7 +1,6 @@
 import Key from "./Key.js";
 import Textarea from "./Textarea.js";
 import createElement from "./createElement.js";
-import ru from '../languages/ru.js';
 
 export default class Keyboard {
     constructor(rowsKeys) {
@@ -15,13 +14,13 @@ export default class Keyboard {
         document.querySelector('.main').append(this.textareaElem)
     }
 
-    createKeyboard() {
+    createKeyboard(lang) {
         this.rowsContainer = createElement('<div class="keyboard-container"></div>');
         this.rowsKeys.forEach(row => {
             this.rowElem = createElement('<div class="keyboard-row"></div>');
             this.rowElem.style.gridTemplateColumns = `repeat(${row.length}, 1fr)`
             row.forEach(key => {
-                this.keyData = ru.find(({code}) => code === key)
+                this.keyData = lang.find(({code}) => code === key)
                 this.keyNew = new Key(this.keyData) //create class key
                 this.allKeys.push(this.keyNew)
                 const elemKey = this.keyNew.elem;
