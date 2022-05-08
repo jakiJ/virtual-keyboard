@@ -83,7 +83,7 @@ export default class Keyboard {
       const {newShift, newText} = this.lang.find(key => key.code === btn.code);
       shift = newShift;
       text = newText;
-      console.log(btn.elem.innerHTML["no-shift-key"])
+      console.log(btn.elem.innerHTML["no-shift-key"]) //not work
     })
   }
 }
