@@ -43,7 +43,6 @@ export default class Keyboard {
 
     document.addEventListener('keydown', this.handlerEvent);
     document.addEventListener('keyup', this.handlerEvent);
-    console.log(this.allKeys)
   }
 
   handlerEvent = (event) => {
@@ -79,11 +78,9 @@ export default class Keyboard {
 
 
     this.allKeys.forEach(btn => {
-      let {shift, text} = btn;
-      const {newShift, newText} = this.lang.find(key => key.code === btn.code);
-      shift = newShift;
-      text = newText;
-      console.log(btn.elem.innerHTML["no-shift-key"]) //not work
+      const keyData = this.lang.find(key => key.code === btn.code);
+      btn.elem.children[0].innerHTML = keyData.text
+      btn.elem.children[1].innerHTML = keyData.shift
     })
   }
 }
