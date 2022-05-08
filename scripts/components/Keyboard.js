@@ -5,12 +5,18 @@ import languages from '../languages/languages.js';
 import {getLocalStorage, setLocalStorage} from '../utils/localStorage.js';
 
 let userLang = getLocalStorage('locLanguage')
+const allLang = Object.keys(languages);
 
 export default class Keyboard {
   constructor(rowsKeys) {
     this.allKeys = []; // for events
     this.rowsKeys = rowsKeys;
     this.lang = languages[userLang]
+
+    //controllers keys
+    this.isShiftDown = false;
+    this.isAltDown = false;
+    this.isCapsDown = false;
   }
 
   createTextarea() {
@@ -37,6 +43,7 @@ export default class Keyboard {
 
     document.addEventListener('keydown', this.handlerEvent);
     document.addEventListener('keyup', this.handlerEvent);
+    console.log(this.allKeys)
   }
 
   handlerEvent = (event) => {
@@ -51,8 +58,32 @@ export default class Keyboard {
     if (type.match(/keydown|mousedown/)) {
       if (type.match(/key/)) event.preventDefault();
       currentKey.elem.classList.add('active-key');
+
+      if(code == 'AltLeft') this.isAltDown = true;
+      if(code == 'ShiftLeft') this.isShiftDown = true;
+
+      if(this.isAltDown && this.isShiftDown) this.switchLang();
+
     } else if (type.match(/keyup|mouseup/)) {
       currentKey.elem.classList.remove('active-key');
+      if(code == 'AltLeft') this.isAltDown = false;
+      if(code == 'ShiftLeft') this.isShiftDown = false;
     }
   };
+
+  switchLang() {
+    let newLang = allLang.filter(lang => lang !== userLang)[0];
+    setLocalStorage('locLanguage', newLang);
+    userLang = getLocalStorage('locLanguage')
+    this.lang = languages[userLang]
+
+
+    this.allKeys.forEach(btn => {
+      let {shift, text} = btn;
+      const {newShift, newText} = this.lang.find(key => key.code === btn.code);
+      shift = newShift;
+      text = newText;
+      console.log(btn.elem.innerHTML["no-shift-key"])
+    })
+  }
 }
