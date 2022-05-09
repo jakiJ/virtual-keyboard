@@ -1,9 +1,7 @@
 import createElement from '../utils/createElement.js';
 
 export default class Key {
-  constructor({
-    text, shift, code, func,
-  }) {
+  constructor({text, shift, code, func}) {
     this.text = text;
     this.shift = shift || '';
     this.code = code;
