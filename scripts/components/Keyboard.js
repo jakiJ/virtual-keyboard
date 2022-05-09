@@ -42,6 +42,8 @@ export default class Keyboard {
     document.querySelector('.main').append(this.rowsContainer);
     document.addEventListener('keydown', this.handlerEvent);
     document.addEventListener('keyup', this.handlerEvent);
+    document.addEventListener('mousedown', this.handlerEvent);
+    document.addEventListener('mouseup', this.handlerEvent);
   }
 
   handlerEvent = (event) => {
@@ -52,8 +54,8 @@ export default class Keyboard {
 
     this.textareaElem.focus();
 
-    if (type.match(/keydown|mousedown/)) {
-      if (type.match(/key/)) event.preventDefault();
+    if (type == 'keydown' || type == 'mousedown') {
+      if (type == 'keydown') event.preventDefault();
       currentKey.elem.classList.add('active-key');
 
       if(code == 'AltLeft') this.isAltDown = true;
@@ -118,11 +120,40 @@ export default class Keyboard {
 
   printText(current, letter) {
     let cursorPosition = this.textareaElem.selectionStart;
-    const textLeft = this.textareaElem.value.slice(0, cursorPosition)
-    const textRight = this.textareaElem.value.slice(cursorPosition)
+    const textLeft = this.textareaElem.value.slice(0, cursorPosition);
+    const textRight = this.textareaElem.value.slice(cursorPosition);
 
     const functionKey = {
-    }
+      //arrow
+      'ArrowUp': () => {
+      },
+      'ArrowDown': () => {
+
+      },
+      'ArrowLeft': () => {
+        cursorPosition = cursorPosition - 1 <= 0 ? 0 : cursorPosition - 1;
+
+      },
+      'ArrowRight': () => {
+        cursorPosition = cursorPosition + 1;
+      },
+      'Space': () => {
+        this.textareaElem.value = `${textLeft} ${textRight}`;
+      },
+      'Tab': () => {
+        this.textareaElem.value = `${textLeft}\t${textRight}`;
+      },
+      'Backspace': () => {
+        this.textareaElem.value = `${textLeft.slice(0, -1)}${textRight}`;
+        cursorPosition--;
+      },
+      'Enter': () => {
+        this.textareaElem.value = `${textLeft}\n${textRight}`;
+        cursorPosition++;
+      }
+    };
+
+    if (functionKey[current.code]) functionKey[current.code]();
 
     if(!current.func) {
       this.textareaElem.value = `${textLeft}${letter}${textRight}`
