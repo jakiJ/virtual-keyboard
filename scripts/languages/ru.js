@@ -165,7 +165,7 @@ export default [
         text: '\\',
         shift: '/',
         code: 'Backslash',
-        func: true
+        func: false
     },
     {
         text: 'Caps',

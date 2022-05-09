@@ -40,14 +40,12 @@ export default class Keyboard {
       this.rowsContainer.append(this.rowElem);
     });
     document.querySelector('.main').append(this.rowsContainer);
-
     document.addEventListener('keydown', this.handlerEvent);
     document.addEventListener('keyup', this.handlerEvent);
   }
 
   handlerEvent = (event) => {
     if (event.stopPropagation) event.stopPropagation();
-
     const { code, type } = event;
     const currentKey = this.allKeys.find((key) => key.code == code);
     if (!currentKey) return;
@@ -63,7 +61,16 @@ export default class Keyboard {
 
       if(this.isAltDown && this.isShiftDown) this.switchLang();
 
+      //shift upper case
       if (this.isShiftDown && !this.isAltDown) this.showShift(this.isShiftDown);
+
+      //print text
+
+      if(this.isShiftDown) {
+        this.printText(currentKey, currentKey.shift)
+      } else [
+        this.printText(currentKey, currentKey.text)
+      ]
 
     } else if (type.match(/keyup|mouseup/)) {
       currentKey.elem.classList.remove('active-key');
@@ -80,25 +87,45 @@ export default class Keyboard {
     userLang = getLocalStorage('locLanguage')
     this.lang = languages[userLang]
 
-
     this.allKeys.forEach(btn => {
       const keyData = this.lang.find(key => key.code === btn.code);
       btn.elem.children[0].innerHTML = keyData.text
       btn.elem.children[1].innerHTML = keyData.shift
+
+      const {shift, text} = keyData;
+      btn.shift = shift;
+      btn.text = text;
     })
   }
 
   showShift(marker) {
     if (marker) {
       this.allKeys.forEach(btn => {
-        btn.elem.children[0].style.display = 'none';
-        btn.elem.children[1].style.display = 'block';
+        if (btn.shift) {
+          btn.elem.children[0].style.display = 'none';
+          btn.elem.children[1].style.display = 'block';
+        }
       })
     } else {
       this.allKeys.forEach(btn => {
-        btn.elem.children[0].style.display = 'block';
-        btn.elem.children[1].style.display = 'none';
+        if (btn.shift) {
+          btn.elem.children[0].style.display = 'block';
+          btn.elem.children[1].style.display = 'none';
+        }
       })
+    }
+  }
+
+  printText(current, letter) {
+    let cursorPosition = this.textareaElem.selectionStart;
+    const textLeft = this.textareaElem.value.slice(0, cursorPosition)
+    const textRight = this.textareaElem.value.slice(cursorPosition)
+
+    const functionKey = {
+    }
+
+    if(!current.func) {
+      this.textareaElem.value = `${textLeft}${letter}${textRight}`
     }
   }
 }
