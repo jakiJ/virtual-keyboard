@@ -53,6 +53,7 @@
 
     border: .8px solid #000;
     padding: 15px;
+    display: block;
 
     &.active-key {
         box-shadow: 0px 0px 8px 1px rgb(3, 98, 225);
@@ -63,9 +64,14 @@
         transform: scale(0.9);
     }
 
-    .shift-key {
+    // .shift-key {
+    //     display: none;
+    // }
+
+    .visible {
         display: none;
     }
+
 }
 
 .func-keyBtn {

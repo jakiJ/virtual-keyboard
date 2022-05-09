@@ -74,6 +74,7 @@
 .keyBtn {
   border: .8px solid #000;
   padding: 15px;
+  display: block;
 }
 
 .keyBtn.active-key {
@@ -90,7 +91,7 @@
           transform: scale(0.9);
 }
 
-.keyBtn .shift-key {
+.keyBtn .visible {
   display: none;
 }
 

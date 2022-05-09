@@ -42,8 +42,15 @@ export default class Keyboard {
     document.querySelector('.main').append(this.rowsContainer);
     document.addEventListener('keydown', this.handlerEvent);
     document.addEventListener('keyup', this.handlerEvent);
-    document.addEventListener('mousedown', this.handlerEvent);
-    document.addEventListener('mouseup', this.handlerEvent);
+    this.rowsContainer.addEventListener('mousedown', this.mouseHandler);
+    this.rowsContainer.addEventListener('mouseup', this.mouseHandler);
+  }
+
+  mouseHandler = (event) => {
+    event.stopPropagation();
+    const targetKey = event.target.closest('.keyBtn');
+    const {dataset: {code}} = targetKey;
+    this.handlerEvent({code, type: event.type});
   }
 
   handlerEvent = (event) => {
@@ -58,13 +65,18 @@ export default class Keyboard {
       if (type == 'keydown') event.preventDefault();
       currentKey.elem.classList.add('active-key');
 
-      if(code == 'AltLeft') this.isAltDown = true;
-      if(code == 'ShiftLeft') this.isShiftDown = true;
+      if(code === 'AltLeft') this.isAltDown = true;
+      if(code === 'ShiftLeft') this.isShiftDown = true;
 
       if(this.isAltDown && this.isShiftDown) this.switchLang();
 
       //shift upper case
       if (this.isShiftDown && !this.isAltDown) this.showShift(this.isShiftDown);
+
+      //caps
+
+      // if (code == 'CapsLock') this.isCapsDown ? this.isCapsDown = false : this.isCapsDown = true;
+      // if(this.isCapsDown) this.capsUpper(userLang)
 
       //print text
 
@@ -76,8 +88,8 @@ export default class Keyboard {
 
     } else if (type.match(/keyup|mouseup/)) {
       currentKey.elem.classList.remove('active-key');
-      if(code == 'AltLeft') this.isAltDown = false;
-      if(code == 'ShiftLeft') this.isShiftDown = false;
+      if(code === 'AltLeft') this.isAltDown = false;
+      if(code === 'ShiftLeft') this.isShiftDown = false;
 
       if (!this.isShiftDown) this.showShift(this.isShiftDown);
     }
@@ -118,18 +130,34 @@ export default class Keyboard {
     }
   }
 
+  // capsUpper(lang) {
+  //   const ruCaps = ['KeyY', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP','KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL','KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Backquote', 'BracketLeft', 'BracketRight', 'Semicolon', 'Quote', 'NumpadDecimal', 'Period'];
+  //   const engCaps = ['KeyY', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP','KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL','KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM'];
+
+  //   if (lang == 'ru') {
+  //     this.allKeys.forEach(btn => {
+  //       if (ruCaps.includes(btn.code)) {
+  //         btn.elem.children[0].classList.remove('visible')
+  //         btn.elem.children[1].classList.add('visible')
+  //       }
+  //     })
+  //   }
+  //   if (lang == 'eng') {
+  //     this.allKeys.forEach(btn => {
+  //       if (engCaps.includes(btn.code)) {
+  //         btn.elem.children[0].classList.remove('visible')
+  //         btn.elem.children[1].classList.add('visible')
+  //       }
+  //     })
+  //   }
+  // }
+
   printText(current, letter) {
     let cursorPosition = this.textareaElem.selectionStart;
     const textLeft = this.textareaElem.value.slice(0, cursorPosition);
     const textRight = this.textareaElem.value.slice(cursorPosition);
 
     const functionKey = {
-      //arrow
-      'ArrowUp': () => {
-      },
-      'ArrowDown': () => {
-
-      },
       'ArrowLeft': () => {
         cursorPosition = cursorPosition - 1 <= 0 ? 0 : cursorPosition - 1;
 
@@ -139,9 +167,11 @@ export default class Keyboard {
       },
       'Space': () => {
         this.textareaElem.value = `${textLeft} ${textRight}`;
+        cursorPosition++;
       },
       'Tab': () => {
         this.textareaElem.value = `${textLeft}\t${textRight}`;
+        cursorPosition++;
       },
       'Backspace': () => {
         this.textareaElem.value = `${textLeft.slice(0, -1)}${textRight}`;
@@ -157,6 +187,8 @@ export default class Keyboard {
 
     if(!current.func) {
       this.textareaElem.value = `${textLeft}${letter}${textRight}`
+      cursorPosition++;
     }
+    this.textareaElem.setSelectionRange(cursorPosition, cursorPosition)
   }
 }

@@ -12,7 +12,7 @@ export default class Key {
     this.template = `
         <div class="keyBtn ${this.func ? 'func-keyBtn' : ''}" data-code="${this.code}">
             <p class="no-shift-key">${this.text}</p>
-            <p class="shift-key">${this.shift ? this.shift : this.text}</p>
+            <p class="shift-key visible">${this.shift ? this.shift : this.text}</p>
         </div>
         `;
 
