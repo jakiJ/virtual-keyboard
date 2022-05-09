@@ -32,7 +32,6 @@ export default class Keyboard {
       this.rowElem.style.gridTemplateColumns = `repeat(${row.length}, 1fr)`;
       row.forEach((key) => {
         this.keyData = this.lang.find(({ code }) => code === key);
-        console.log(this.keyData)
         this.keyNew = new Key(this.keyData); // create class key
         this.allKeys.push(this.keyNew);
         const elemKey = this.keyNew.elem;
