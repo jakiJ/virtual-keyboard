@@ -63,10 +63,14 @@ export default class Keyboard {
 
       if(this.isAltDown && this.isShiftDown) this.switchLang();
 
+      if (this.isShiftDown && !this.isAltDown) this.showShift(this.isShiftDown);
+
     } else if (type.match(/keyup|mouseup/)) {
       currentKey.elem.classList.remove('active-key');
       if(code == 'AltLeft') this.isAltDown = false;
       if(code == 'ShiftLeft') this.isShiftDown = false;
+
+      if (!this.isShiftDown) this.showShift(this.isShiftDown);
     }
   };
 
@@ -82,5 +86,19 @@ export default class Keyboard {
       btn.elem.children[0].innerHTML = keyData.text
       btn.elem.children[1].innerHTML = keyData.shift
     })
+  }
+
+  showShift(marker) {
+    if (marker) {
+      this.allKeys.forEach(btn => {
+        btn.elem.children[0].style.display = 'none';
+        btn.elem.children[1].style.display = 'block';
+      })
+    } else {
+      this.allKeys.forEach(btn => {
+        btn.elem.children[0].style.display = 'block';
+        btn.elem.children[1].style.display = 'none';
+      })
+    }
   }
 }

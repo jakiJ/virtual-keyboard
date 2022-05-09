@@ -102,7 +102,7 @@ export default [
         func: false
     },
     {
-        text: 'У',
+        text: 'у',
         shift: 'У',
         code: 'KeyE',
         func: false
