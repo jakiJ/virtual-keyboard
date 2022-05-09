@@ -2,18 +2,18 @@ import Key from './Key.js';
 import Textarea from './Textarea.js';
 import createElement from '../utils/createElement.js';
 import languages from '../languages/languages.js';
-import {getLocalStorage, setLocalStorage} from '../utils/localStorage.js';
+import { getLocalStorage, setLocalStorage } from '../utils/localStorage.js';
 
-let userLang = getLocalStorage('locLanguage')
+let userLang = getLocalStorage('locLanguage');
 const allLang = Object.keys(languages);
 
 export default class Keyboard {
   constructor(rowsKeys) {
     this.allKeys = []; // for events
     this.rowsKeys = rowsKeys;
-    this.lang = languages[userLang]
+    this.lang = languages[userLang];
 
-    //controllers keys
+    // controllers keys
     this.isShiftDown = false;
     this.isAltDown = false;
     this.isCapsDown = false;
@@ -49,9 +49,9 @@ export default class Keyboard {
   mouseHandler = (event) => {
     event.stopPropagation();
     const targetKey = event.target.closest('.keyBtn');
-    const {dataset: {code}} = targetKey;
-    this.handlerEvent({code, type: event.type});
-  }
+    const { dataset: { code } } = targetKey;
+    this.handlerEvent({ code, type: event.type });
+  };
 
   handlerEvent = (event) => {
     if (event.stopPropagation) event.stopPropagation();
@@ -65,68 +65,69 @@ export default class Keyboard {
       if (type == 'keydown') event.preventDefault();
       currentKey.elem.classList.add('active-key');
 
-      if(code === 'AltLeft') this.isAltDown = true;
-      if(code === 'ShiftLeft') this.isShiftDown = true;
+      if (code === 'AltLeft') this.isAltDown = true;
+      if (code === 'ShiftLeft') this.isShiftDown = true;
 
-      if(this.isAltDown && this.isShiftDown) this.switchLang();
+      if (this.isAltDown && this.isShiftDown) this.switchLang();
 
-      //shift upper case
+      // shift upper case
       if (this.isShiftDown && !this.isAltDown) this.showShift(this.isShiftDown);
 
-      //caps
+      // caps
 
       // if (code == 'CapsLock') this.isCapsDown ? this.isCapsDown = false : this.isCapsDown = true;
       // if(this.isCapsDown) this.capsUpper(userLang)
 
-      //print text
+      // print text
 
-      if(this.isShiftDown) {
-        this.printText(currentKey, currentKey.shift)
-      } else [
-        this.printText(currentKey, currentKey.text)
-      ]
-
+      if (this.isShiftDown) {
+        this.printText(currentKey, currentKey.shift);
+      } else {
+        [
+          this.printText(currentKey, currentKey.text),
+        ];
+      }
     } else if (type.match(/keyup|mouseup/)) {
       currentKey.elem.classList.remove('active-key');
-      if(code === 'AltLeft') this.isAltDown = false;
-      if(code === 'ShiftLeft') this.isShiftDown = false;
+      if (code === 'AltLeft') this.isAltDown = false;
+      if (code === 'ShiftLeft') this.isShiftDown = false;
 
       if (!this.isShiftDown) this.showShift(this.isShiftDown);
     }
   };
 
   switchLang() {
-    let newLang = allLang.filter(lang => lang !== userLang)[0];
+    const newLang = allLang.filter((lang) => lang !== userLang)[0];
     setLocalStorage('locLanguage', newLang);
-    userLang = getLocalStorage('locLanguage')
-    this.lang = languages[userLang]
+    userLang = getLocalStorage('locLanguage');
+    this.lang = languages[userLang];
 
-    this.allKeys.forEach(btn => {
-      const keyData = this.lang.find(key => key.code === btn.code);
-      btn.elem.children[0].innerHTML = keyData.text
-      btn.elem.children[1].innerHTML = keyData.shift
+    this.allKeys.forEach((btn) => {
+      const keyData = this.lang.find((key) => key.code === btn.code);
+      btn.elem.children[0].innerHTML = keyData.text;
+      btn.elem.children[1].innerHTML = keyData.shift;
 
-      const {shift, text} = keyData;
+      const { shift, text } = keyData;
       btn.shift = shift;
       btn.text = text;
-    })
+    });
   }
 
   showShift(marker) {
     if (marker) {
-      this.allKeys.forEach(btn => {
+      this.allKeys.forEach((btn) => {
         if (btn.shift) {
           btn.elem.children[0].style.display = 'none';
           btn.elem.children[1].style.display = 'block';
         }
-      })
+      });
     } else {
-      this.allKeys.forEach(btn => {
+      this.allKeys.forEach((btn) => {
         if (btn.shift) {
           btn.elem.children[0].style.display = 'block';
           btn.elem.children[1].style.display = 'none';
         }
-      })
+      });
     }
   }
 
@@ -158,37 +159,36 @@ export default class Keyboard {
     const textRight = this.textareaElem.value.slice(cursorPosition);
 
     const functionKey = {
-      'ArrowLeft': () => {
+      ArrowLeft: () => {
         cursorPosition = cursorPosition - 1 <= 0 ? 0 : cursorPosition - 1;
-
       },
-      'ArrowRight': () => {
-        cursorPosition = cursorPosition + 1;
+      ArrowRight: () => {
+        cursorPosition += 1;
       },
-      'Space': () => {
+      Space: () => {
         this.textareaElem.value = `${textLeft} ${textRight}`;
         cursorPosition++;
       },
-      'Tab': () => {
+      Tab: () => {
         this.textareaElem.value = `${textLeft}\t${textRight}`;
         cursorPosition++;
       },
-      'Backspace': () => {
+      Backspace: () => {
         this.textareaElem.value = `${textLeft.slice(0, -1)}${textRight}`;
         cursorPosition--;
       },
-      'Enter': () => {
+      Enter: () => {
         this.textareaElem.value = `${textLeft}\n${textRight}`;
         cursorPosition++;
-      }
+      },
     };
 
     if (functionKey[current.code]) functionKey[current.code]();
 
-    if(!current.func) {
-      this.textareaElem.value = `${textLeft}${letter}${textRight}`
+    if (!current.func) {
+      this.textareaElem.value = `${textLeft}${letter}${textRight}`;
       cursorPosition++;
     }
-    this.textareaElem.setSelectionRange(cursorPosition, cursorPosition)
+    this.textareaElem.setSelectionRange(cursorPosition, cursorPosition);
   }
 }
