@@ -102,7 +102,7 @@ export default [
         func: false
     },
     {
-        text: 'У',
+        text: 'у',
         shift: 'У',
         code: 'KeyE',
         func: false
@@ -165,7 +165,7 @@ export default [
         text: '\\',
         shift: '/',
         code: 'Backslash',
-        func: true
+        func: false
     },
     {
         text: 'Caps',

@@ -92,7 +92,7 @@ export default [
     {
         text: 'q',
         shift: 'Q',
-        code: 'KeyY',
+        code: 'KeyQ',
         func: false
     },
     {
