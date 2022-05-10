@@ -56,13 +56,13 @@ export default class Keyboard {
   handlerEvent = (event) => {
     if (event.stopPropagation) event.stopPropagation();
     const { code, type } = event;
-    const currentKey = this.allKeys.find((key) => key.code == code);
+    const currentKey = this.allKeys.find((key) => key.code === code);
     if (!currentKey) return;
 
     this.textareaElem.focus();
 
-    if (type == 'keydown' || type == 'mousedown') {
-      if (type == 'keydown') event.preventDefault();
+    if (type === 'keydown' || type === 'mousedown') {
+      if (type === 'keydown') event.preventDefault();
       currentKey.elem.classList.add('active-key');
 
       if (code === 'AltLeft') this.isAltDown = true;
@@ -83,9 +83,7 @@ export default class Keyboard {
       if (this.isShiftDown) {
         this.printText(currentKey, currentKey.shift);
       } else {
-        [
-          this.printText(currentKey, currentKey.text),
-        ];
+        this.printText(currentKey, currentKey.text);
       }
     } else if (type.match(/keyup|mouseup/)) {
       currentKey.elem.classList.remove('active-key');
@@ -102,7 +100,8 @@ export default class Keyboard {
     userLang = getLocalStorage('locLanguage');
     this.lang = languages[userLang];
 
-    this.allKeys.forEach((btn) => {
+    this.allKeys.forEach((data) => {
+      const btn = data;
       const keyData = this.lang.find((key) => key.code === btn.code);
       btn.elem.children[0].innerHTML = keyData.text;
       btn.elem.children[1].innerHTML = keyData.shift;
@@ -116,24 +115,34 @@ export default class Keyboard {
   showShift(marker) {
     if (marker) {
       this.allKeys.forEach((btn) => {
-        if (btn.shift) {
-          btn.elem.children[0].style.display = 'none';
-          btn.elem.children[1].style.display = 'block';
+        const data = btn;
+        if (data.shift) {
+          data.elem.children[0].style.display = 'none';
+          data.elem.children[1].style.display = 'block';
         }
       });
     } else {
       this.allKeys.forEach((btn) => {
-        if (btn.shift) {
-          btn.elem.children[0].style.display = 'block';
-          btn.elem.children[1].style.display = 'none';
+        const data = btn;
+        if (data.shift) {
+          data.elem.children[0].style.display = 'block';
+          data.elem.children[1].style.display = 'none';
         }
       });
     }
   }
 
   // capsUpper(lang) {
-  //   const ruCaps = ['KeyY', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP','KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL','KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM', 'Backquote', 'BracketLeft', 'BracketRight', 'Semicolon', 'Quote', 'NumpadDecimal', 'Period'];
-  //   const engCaps = ['KeyY', 'KeyW', 'KeyE', 'KeyR', 'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP','KeyA', 'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL','KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM'];
+  //   const ruCaps = ['KeyY', 'KeyW', 'KeyE', 'KeyR', 'KeyT',
+  //    'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP','KeyA', 'KeyS',
+  //   'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK', 'KeyL',
+  //    'KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN',
+  //   'KeyM', 'Backquote', 'BracketLeft', 'BracketRight',
+  //   'Semicolon', 'Quote', 'NumpadDecimal', 'Period'];
+  //   const engCaps = ['KeyY', 'KeyW', 'KeyE', 'KeyR',
+  //  'KeyT', 'KeyY', 'KeyU', 'KeyI', 'KeyO', 'KeyP','KeyA',
+  //  'KeyS', 'KeyD', 'KeyF', 'KeyG', 'KeyH', 'KeyJ', 'KeyK',
+  //   'KeyL','KeyZ', 'KeyX', 'KeyC', 'KeyV', 'KeyB', 'KeyN', 'KeyM'];
 
   //   if (lang == 'ru') {
   //     this.allKeys.forEach(btn => {
@@ -167,19 +176,19 @@ export default class Keyboard {
       },
       Space: () => {
         this.textareaElem.value = `${textLeft} ${textRight}`;
-        cursorPosition++;
+        cursorPosition += 1;
       },
       Tab: () => {
         this.textareaElem.value = `${textLeft}\t${textRight}`;
-        cursorPosition++;
+        cursorPosition = +1;
       },
       Backspace: () => {
         this.textareaElem.value = `${textLeft.slice(0, -1)}${textRight}`;
-        cursorPosition--;
+        cursorPosition -= 1;
       },
       Enter: () => {
         this.textareaElem.value = `${textLeft}\n${textRight}`;
-        cursorPosition++;
+        cursorPosition += 1;
       },
     };
 
@@ -187,7 +196,7 @@ export default class Keyboard {
 
     if (!current.func) {
       this.textareaElem.value = `${textLeft}${letter}${textRight}`;
-      cursorPosition++;
+      cursorPosition += 1;
     }
     this.textareaElem.setSelectionRange(cursorPosition, cursorPosition);
   }
